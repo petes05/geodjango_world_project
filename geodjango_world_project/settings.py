@@ -52,7 +52,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'geodjango.urls'
+ROOT_URLCONF = 'geodjango_world_project.urls'
 
 TEMPLATES = [
     {
@@ -70,7 +70,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'geodjango.wsgi.application'
+WSGI_APPLICATION = 'geodjango_world_project.wsgi.application'
 
 
 # Database

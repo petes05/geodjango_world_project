@@ -19,5 +19,6 @@ class WorldBorder(models.Model):
     mpoly = models.MultiPolygonField()
 
     # Returns the string representation of the model.
-    def __str__(self):              # __unicode__ on Python 2
+    def __str__(self):
         return self.name
+    
