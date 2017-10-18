@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+{% load static %}
+{% load leaflet_tags %}
+<html>
+<head>
+    {% leaflet_js %}
+    {% leaflet_css %}
+    <style>
+        .leaflet-container { height:75vh; }
+    </style>
+    <meta charset="UTF-8">
+    <title>World</title>
+    <script type="text/javascript" src="{% static 'world/dist/leaflet.ajax.js' %}"></script>
+</head>
+<body>
+<br>
+<form>
+    <p style="font-size:30px">Where is
+  <select id="countriesSelect"style="font-size:25px;">
+      <option value="blank"></option>
+  </select>
+        ?</p>
+</form>
+<br>
+<script type="text/javascript">
+    var map;
+    var dataset;
+
+    document.getElementById("countriesSelect").addEventListener("change", newCountrySelected);
+
+    function our_layers(map_param,options){
+        map = map_param;
+    }
+
+    // new country selected so clear any current data and add new data
+    function newCountrySelected() {
+        if (dataset) {
+            dataset.clearLayers();
+        }
+
+        var countryName = document.getElementById("countriesSelect").value;
+
+        if (countryName){
+        dataset = new L.GeoJSON.AJAX(countryName+"/countries",{});
+        dataset.addTo(map);
+        }
+    }
+
+    var countriesDropdown = document.getElementById("countriesSelect");
+{% if countries_list %}
+    {% for name in countries_list %}
+        var option = document.createElement("option");
+        option.text = '{{ name }}';
+        countriesDropdown.add(option);
+    {% endfor %}
+{% endif %}
+</script>
+{% leaflet_map "main" callback="window.our_layers" %}
+</body>
+</html>
